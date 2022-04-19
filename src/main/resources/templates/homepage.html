@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <title>Activity Data</title>
+</head>
+<style>
+    table {
+        border:1px solid black;
+
+        float: left;
+        min-width:75%;
+        margin:auto
+    }
+
+    tr {
+        border-bottom:1px dashed black;
+        background:#eee;
+    }
+    tr:nth-child(odd) {
+        background:#ddd;
+    }
+</style>
+<header>
+
+</header>
+<body class="d-flex flex-column h-100 ">
+<main class="flex-shrink-0">
+
+    <div class="row">
+        <div class="col-md-1">
+            <div class="sidebar-container">
+                <div class="sidebar-logo">
+                    Activity Data Tracker
+                </div>
+                <ul class="sidebar-navigation">
+                    <li class="header">Navigation</li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-home" aria-hidden="true"></i> Homepage
+                        </a>
+                    </li>
+                    <li class="header">Modify Data</li>
+                    <li>
+                        <a th:href="@{/records/add-record}">
+                            <i class="fa fa-users" aria-hidden="true"></i> Add a New Date Log
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+        <div class="col-md-11">
+            <div class="container">
+                <div class="content-container">
+
+                    <div class="container-fluid">
+
+                        <!-- Main component for a primary marketing message or call to action -->
+                        <div class="jumbotron">
+                            <h1>Most Recent Data</h1>
+
+                        </div>
+
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <tr>
+                        <th>Date</th>
+                        <th>Calories Idle</th>
+                        <th>Last Update</th>
+                        <th>Types</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    <tr th:each="log : ${allDates}">
+                        <td th:text="${log.getDate()}"></td>
+                        <td th:text="${log.getCaloriesIdle()}"></td>
+                        <td th:text="${log.getLastUpdate()}">Age</td>
+                        <td><a th:href="@{/records/{date}/types(date=${log.getDate()})}">Types</a></td>
+                        <td><a th:href="@{/records/edit-record/{date}(date=${log.getDate()})}">Edit</a></td>
+                        <td><a th:href="@{/records/delete/{date}(date=${log.getDate()})}">Delete</a></td>
+
+                    </tr>
+                </table> </div>
+        </div>
+    </div>
+</main>
+<footer class="footer fixed-bottom mt-auto py-3 bg-light text-center">
+    <div class="container">
+        <span class="text-muted">CS5500: Ivor, Akash, Karan 2021</span>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
