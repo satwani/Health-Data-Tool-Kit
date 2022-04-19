@@ -1,0 +1,14 @@
+create table activity (act_id integer not null, act_type varchar(255), calories integer, distance float, duration float, end_time datetime(6), act_group varchar(255), manual bit, start_time datetime(6), steps integer, f_type_id bigint, primary key (act_id)) engine=InnoDB;
+create table activity_track_points (activity_act_id integer not null, track_points varchar(255)) engine=InnoDB;
+create table date_log (date_of date not null, calories_idle integer, last_update datetime(6), f_seg_id integer, primary key (date_of)) engine=InnoDB;
+create table hibernate_sequence (next_val bigint) engine=InnoDB;
+insert into hibernate_sequence values ( 1 );
+create table place_foursquare_category_ids (place_typeid bigint not null, foursquare_category_ids varchar(255)) engine=InnoDB;
+create table segment (seg_id integer not null, primary key (seg_id)) engine=InnoDB;
+create table summary (activity varchar(255) not null, calories integer, distance float, duration float, sum_group varchar(255), last_update datetime(6), steps double precision, primary key (activity)) engine=InnoDB;
+create table type (kind varchar(31) not null, typeid bigint not null, end_time datetime(6), start_time datetime(6), facebook_place_id varchar(255), foursquare_id varchar(255), lat double precision, lon double precision, name varchar(255), type varchar(255), f_seg_id integer not null, primary key (typeid)) engine=InnoDB;
+alter table activity add constraint FKreo8se99n01qr9nrkk2pv786r foreign key (f_type_id) references type (typeid);
+alter table activity_track_points add constraint FKqmoed35l1xuipk10t7qehhlun foreign key (activity_act_id) references activity (act_id);
+alter table date_log add constraint FKdbmxn9neuag2usp9d1qqcf2gb foreign key (f_seg_id) references segment (seg_id);
+alter table place_foursquare_category_ids add constraint FK3ib1rn2aloyy6b4xu4uqf8a91 foreign key (place_typeid) references type (typeid);
+alter table type add constraint FKbi81ixl4spn9pmrg2ueaeou95 foreign key (f_seg_id) references segment (seg_id);
